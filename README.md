@@ -10,42 +10,48 @@ This is a simple C++ project that functions as a basic calculator. It allows the
 - Docker (to run the project in a containerized environment)
 - Visual Studio Code (optional, for better C++ development experience)
 
-## Installation
+## Dockerfile Explanation
 
-1. Clone the repository:
+  | **Step**                       | **Description**                                                                                             |
+|---------------------------------|-------------------------------------------------------------------------------------------------------------|
+| `FROM gcc:latest`               | Use the latest official GCC image to compile the C++ code.                                                   |
+| `WORKDIR /app`                  | Set the working directory inside the container to `/app`.                                                   |
+| `COPY . /app`                   | Copy all files from the local directory to the `/app` directory inside the container.                        |
+| `RUN g++ -o c++project c++project.cpp` | Compile the C++ source file into an executable named `c++project`.                                    |
+| `CMD ["./c++project"]`          | Run the compiled C++ project executable when the container starts.                                           |
 
-    ```bash
-    git clone https://github.com/JessJoha/ProjectC++.git
-    ```
 
-2. Navigate to the project directory:
+## Building the Docker Image 
+If you prefer to build the Docker image, run this command.
 
-    ```bash
-    cd ProjectC++
-    ```
+1. **Build the Docker image:**
+   
+```bash
+docker build -t imgc .
+ ```
 
-3. Ensure g++ is installed by checking the version with the following command:
+## Push the image to Docker Hub
+To push the image to your own Docker Hub account, follow these steps.
 
-    ```bash
-    g++ --version
-    ```
-
-    If you don't have g++ installed, you can install it using your package manager (e.g., `apt`, `brew`, `yum`).
-
-## Running the Project
-
-To run the project, compile and execute the code with the following commands:
-
-1. Compile the C++ file:
+1. **Tag the image:**
 
     ```bash
-    g++ -o c++project c++project.cpp
-    ```
-
-2. Run the compiled program:
-
+    docker tag imgc jessjoha/imgc:latest
+    ``` 
+2. **Push the image to Docker Hub:**
+   
     ```bash
-    ./c++project
-    ```
+    docker push jessjoha/imgc:latest
+    ``` 
+
+### Pull the image from Docker Hub:
+
+```bash
+docker pull jessjoha/imgc
+```
+
+## Link to the Docker Hub image:
+
+https://hub.docker.com/r/jessjoha/imgc
 
 The program will prompt you to input two numbers and an operator, then display the result.
